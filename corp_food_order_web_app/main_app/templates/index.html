@@ -18,17 +18,21 @@
 	<h2>Меню</h2>
 	<table>
 		<thead><th>Название</th><th>Состав</th><th>Цена</th><th>Количество</th></thead>
-		{% for food in food_list %}
+		{% for food in menu %}
 		<tr>
 			<td>{{ food.name }}</td>
 			<td>{{ food.ingredients }}</td>
-			<td>{{ food.price }}</td>
+			<td>{{ food.price }} руб.</td>
+			<td><button type="button" class="btn btn-success">+</button></td>
+			<td>0</td>
+			<td><button type="button" class="btn btn-danger">-</button></td>
 		</tr>
+		{% endfor %}
 	</table>
 	
-	<p>ОПЦИОНАЛЬНО Мне повезёт</p>
-	<p>Отправить заказ</p>
-	<p>Отчистить заказ</p>
+	<p><button type="button" class="btn btn-warning">ОПЦИОНАЛЬНО Мне повезёт</button></p>
+	<button type="button" class="btn btn-primary btn-lg">Отправить заказ</button>
+	<button type="button" class="btn btn-secondary btn-lg">Отчистить заказ</button>
 </div>
 
 </body>
