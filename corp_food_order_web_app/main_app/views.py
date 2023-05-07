@@ -17,7 +17,7 @@ def create_order(request):
         order.person = request.POST.get('person')
         order.save()
 
-        food_list = request.POST.get('food_list')
+        food_list = request.POST.getlist('food_list')
         for food in food_list:
             food_order = Food_Order()
             food_order.food = food

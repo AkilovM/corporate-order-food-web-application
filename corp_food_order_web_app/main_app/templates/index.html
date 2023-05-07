@@ -13,34 +13,40 @@
 </div>
 
 <div>
-	<p>Выберите себя из списка сотрудников:		 ОПЦИОНАЛЬНО		История заказов		Отчет "Заказ еды на дату"</p>
-	<p>Выберите дату:</p>
-	
-	<h2>Меню</h2>
-	<table>
-		<thead><th>Название</th><th>Состав</th><th>Цена</th><th>Количество</th></thead>
-		{% for food in menu %}
-		<tr>
-			<td>{{ food.name }}</td>
-			<td>{{ food.ingredients }}</td>
-			<td>{{ food.price }} руб.</td>
-			<td><button type="button" class="btn btn-success">+</button></td>
-			<td>0</td>
-			<td><button type="button" class="btn btn-danger">-</button></td>
-		</tr>
-		{% endfor %}
-	</table>
+	<p>ОПЦИОНАЛЬНО		История заказов,		Отчет "Заказ еды на дату"</p>
 	
 	<form method="POST">
 		{% csrf_token %}
+		<div>
+			Ваше имя:{{ order_form.person }}
+			Дата заказа:{{ order_form.date }}
+		</div>
+		
+		<h2>Меню</h2>
 		<table>
-			{{ order_form }}
+			<!--{{ order_form.food_list }}-->
+			<thead><th>Название</th><th>Состав</th><th>Цена</th><th></th><th>Кол-во</th><th></th></thead>
+			{% for food in order_form.food_list %}
+			<tr>
+				<td>{{ food.food.name }}</td>
+				<td>{{ food.food.ingredients }}</td>
+				<td>{{ food.food.price }} руб.</td>
+				<td><button type="button" class="btn btn-success">+</button></td>
+				<td>{{ food.amount }}</td>
+				<td><button type="button" class="btn btn-danger">-</button></td>
+			</tr>
+			{% endfor %}
 		</table>
-		<input type="submit" value="Отправить заказ" >
+		
+		{% for field in order_form.amount_fields %}
+		{{ field }}
+		{% endfor %}
+		
+		<input type="submit" class="btn btn-primary btn-lg" value="Отправить заказ" >
 	</form>
 	
 	<p><button type="button" class="btn btn-warning">ОПЦИОНАЛЬНО Мне повезёт</button></p>
-	<button type="button" class="btn btn-primary btn-lg">Отправить заказ</button>
+	<!--<button type="button" class="btn btn-primary btn-lg">Отправить заказ</button>-->
 	<button type="button" class="btn btn-secondary btn-lg">Отчистить заказ</button>
 </div>
 
