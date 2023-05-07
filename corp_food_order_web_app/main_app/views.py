@@ -1,12 +1,14 @@
 from django.shortcuts import render
 from .models import Person, Food, Order, Food_Order
+from .forms import Order_Form
 
 # Create your views here.
 def index(request):
     create_test_values()
     persons = Person.objects.all()
     menu = Food.objects.all()
-    return render(request, 'index.html', {'persons':persons, 'menu':menu})
+    order_form = Order_Form()
+    return render(request, 'index.html', {'persons':persons, 'menu':menu, 'order_form':order_form})
 
 def create_order(request):
     if request.method == 'POST':
