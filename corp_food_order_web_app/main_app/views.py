@@ -13,7 +13,7 @@ def index(request):
     if request.method == 'GET':
         return render(request, 'index.html', {'persons':persons, 'menu':menu, 'order_form':order_form})
     elif request.method == 'POST':
-        print(request.POST)
+        #print(request.POST)
         order = Order()
         day = request.POST.get('date_day')
         month = request.POST.get('date_month')
@@ -36,24 +36,17 @@ def index(request):
             return render(request, 'message.html', {'message':'Ваш заказ принят!'})
         return render(request, 'message.html', {'message':'Что-то пошло не так.'})
 
-def create_order(request):
-    if request.method == 'POST':
-        order = Order()
-        order.date = request.POST.get('date')
-        order.person = request.POST.get('person')
-        #order.save()
+def history(request):
+    persons = Person.objects.all()
+    if request.method == 'GET':
+        return render(request, 'history.html', {'persons':persons})
+    elif request.method == 'POST':
+        person = request.POST.get('person')
+        orders = Order.objects.get()
 
-        food_list = request.POST.getlist('food_list')
-        for food in food_list:
-            food_order = Food_Order()
-            food_order.food = food
-            food_order.order = order
-            food_order.amount = food.amount
-            food_order.save()
-        # return ...
-        
-#TODO
-#def get_report(request):
+def report(request):
+    #TODO
+    return render(request, 'report.html')
 
 def create_test_values():
     if Person.objects.all().count() == 0:
