@@ -22,12 +22,9 @@ def index(request):
         order.date = date
         order.person = Person.objects.get(pk=request.POST.get('person'))
         food_amounts = request.POST.getlist('amount')
-        # TODO check at least 1 amount > 0
+        # TODO check that at least 1 amount > 0
         order.save()
 
-        print('length menu = ', len(menu))
-        print('length food_amounts = ', len(food_amounts))
-        print(food_amounts)
         if len(menu) == len(food_amounts):
             for i in range(len(food_amounts)):
                 food_order = Food_Order()
@@ -36,8 +33,8 @@ def index(request):
                 food_order.amount = food_amounts[i]
                 if int(food_order.amount) > 0:
                     food_order.save()
-        #return render(request, 'index.html', {'persons':persons, 'menu':menu, 'order_form':order_form})
-        return render(request, 'message.html', {'message':'Ваш заказ принят!'})
+            return render(request, 'message.html', {'message':'Ваш заказ принят!'})
+        return render(request, 'message.html', {'message':'Что-то пошло не так.'})
 
 def create_order(request):
     if request.method == 'POST':
