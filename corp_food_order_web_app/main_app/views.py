@@ -34,7 +34,8 @@ def index(request):
                 food_order.amount = food_amounts[i]
                 if food_order.amount > 0:
                     food_order.save()
-        return render(request, 'index.html', {'persons':persons, 'menu':menu, 'order_form':order_form})
+        #return render(request, 'index.html', {'persons':persons, 'menu':menu, 'order_form':order_form})
+        return render(request, 'message.html', {'message':'Ваш заказ принят!'})
 
 def create_order(request):
     if request.method == 'POST':
