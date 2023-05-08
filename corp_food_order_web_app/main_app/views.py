@@ -13,7 +13,7 @@ def index(request):
     if request.method == 'GET':
         return render(request, 'index.html', {'persons':persons, 'menu':menu, 'order_form':order_form})
     elif request.method == 'POST':
-        #print(request.POST)
+        print(request.POST)
         order = Order()
         day = request.POST.get('date_day')
         month = request.POST.get('date_month')
@@ -21,18 +21,20 @@ def index(request):
         date = year+'-'+month+'-'+day # YYYY-MM-DD
         order.date = date
         order.person = Person.objects.get(pk=request.POST.get('person'))
-        food_amounts = request.POST.get('amount')
+        food_amounts = request.POST.getlist('amount')
         # TODO check at least 1 amount > 0
         order.save()
 
-        
+        print('length menu = ', len(menu))
+        print('length food_amounts = ', len(food_amounts))
+        print(food_amounts)
         if len(menu) == len(food_amounts):
             for i in range(len(food_amounts)):
                 food_order = Food_Order()
                 food_order.order = order
                 food_order.food = menu[i]
                 food_order.amount = food_amounts[i]
-                if food_order.amount > 0:
+                if int(food_order.amount) > 0:
                     food_order.save()
         #return render(request, 'index.html', {'persons':persons, 'menu':menu, 'order_form':order_form})
         return render(request, 'message.html', {'message':'Ваш заказ принят!'})
