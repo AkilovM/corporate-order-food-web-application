@@ -1,21 +1,47 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 from .models import Person, Food, Order, Food_Order
 from .forms import Order_Form
 
 # Create your views here.
 def index(request):
-    create_test_values()
+    #create_test_values()
+    #print(Order.objects.all()[1].person)
     persons = Person.objects.all()
     menu = Food.objects.all()
     order_form = Order_Form()
-    return render(request, 'index.html', {'persons':persons, 'menu':menu, 'order_form':order_form})
+    if request.method == 'GET':
+        return render(request, 'index.html', {'persons':persons, 'menu':menu, 'order_form':order_form})
+    elif request.method == 'POST':
+        #print(request.POST)
+        order = Order()
+        day = request.POST.get('date_day')
+        month = request.POST.get('date_month')
+        year = request.POST.get('date_year')
+        date = year+'-'+month+'-'+day # YYYY-MM-DD
+        order.date = date
+        order.person = Person.objects.get(pk=request.POST.get('person'))
+        food_amounts = request.POST.get('amount')
+        # TODO check at least 1 amount > 0
+        order.save()
+
+        
+        if len(menu) == len(food_amounts):
+            for i in range(len(food_amounts)):
+                food_order = Food_Order()
+                food_order.order = order
+                food_order.food = menu[i]
+                food_order.amount = food_amounts[i]
+                if food_order.amount > 0:
+                    food_order.save()
+        return render(request, 'index.html', {'persons':persons, 'menu':menu, 'order_form':order_form})
 
 def create_order(request):
     if request.method == 'POST':
         order = Order()
         order.date = request.POST.get('date')
         order.person = request.POST.get('person')
-        order.save()
+        #order.save()
 
         food_list = request.POST.getlist('food_list')
         for food in food_list:

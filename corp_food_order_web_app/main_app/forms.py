@@ -19,7 +19,7 @@ class Food_Count_Fields(forms.MultiValueField):
         fields = tuple(fields)
 
 class Order_Form(forms.Form):
-    person = Person_ModelChoiceField(queryset=Person.objects.all(), label='Ваше имя:')
+    #person = Person_ModelChoiceField(queryset=Person.objects.all(), label='Ваше имя:')
     date = forms.DateField(widget=forms.SelectDateWidget(), label='Дата заказа:')
 
     fields = []

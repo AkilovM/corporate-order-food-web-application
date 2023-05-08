@@ -39,7 +39,7 @@
 			<select class="form-select" name="person">
 				<option selected>Выберите себя</option>
 				{% for person in persons %}
-				<option value="{{ person }}">{{ person.name }}</option>
+				<option value="{{ person.id }}">{{ person.name }}</option>
 				{% endfor %}
 			</select>
 			</div>
@@ -51,8 +51,8 @@
 		</div>
 		
 		<div class="container">
-		<h2>Меню</h2>
-		<table class="table table-bordered">
+		<h2 class="text-center">Меню</h2>
+		<table class="table table-bordered" id="menu_table">
 			<!--{{ order_form.food_list }}-->
 			<thead><th class="text-center">Название</th><th>Состав</th><th class="text-center">Цена</th><!--<th></th>--><th class="text-center">Кол-во</th><!--<th></th>--></thead>
 			<tbody class="table-group-divider">
