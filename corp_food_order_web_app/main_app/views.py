@@ -44,10 +44,11 @@ def history(request):
     elif request.method == 'POST':
         person = request.POST.get('person')
         orders = Order.objects.filter(person=person)
-        for order in orders:
+        sorted_orders = sorted(orders, key=lambda x: x.date)
+        for order in sorted_orders:
             foods = Food_Order.objects.filter(order=order)
             order.foods = foods
-        return render(request, 'history.html', {'persons':persons, 'person':Person.objects.get(pk=person), 'orders':orders})
+        return render(request, 'history.html', {'persons':persons, 'person':Person.objects.get(pk=person), 'orders':sorted_orders})
             
 def report(request):
     date_form = Date_Form()
