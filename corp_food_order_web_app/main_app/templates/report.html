@@ -16,10 +16,10 @@
 					<a href="/" class="nav-link"><h4>Меню</h4></a>
 				</li>
 				<li class="nav-item">
-					<a href="../history/" class="nav-link text-secondary"><h4>История</h4></a>
+					<a href="../history/" class="nav-link"><h4>История</h4></a>
 				</li>
 				<li class="nav-item">
-					<a href="../report/" class="nav-link"><h4>Отчет</h4></a>
+					<a href="../report/" class="nav-link text-secondary"><h4>Отчет</h4></a>
 				</li>
 			</ul>
 		</header>
@@ -36,30 +36,37 @@
 			<div class="container p-2">
 			<div class="row">
 				<div class="col-sm-4">
-					<select class="form-select" name="person">
-						<option selected>Выберите себя в списке сотрудников</option>
-						{% for person in persons %}
-						<option value="{{ person.id }}">{{ person.name }}</option>
-						{% endfor %}
-					</select>
+					Дата заказа: {{ date_form.date }}
 				</div>
 				<div class="col-sm-4">
-					<input type="submit" class="btn btn-info btn-lg" value="Получить историю заказов">
+					<input type="submit" class="btn btn-info btn-lg" value="Получить отчет на дату">
 				</div>
 			</div>
 			</div>
 		</form>
-		<h2 class="text-center">{{ person }}</h2>
+		<h2 class="text-center">Заказ еды на дату: {{ date }}</h2>
+		<h2 class="text-center">Итого: {{ overall_sum }} руб.</h2>
 		<div class="container p-2">
-			{% for order in orders %}
-			<ul class="list-group border border-dark">
-				<li class="list-group-item"><h5>{{ order.date }}</h5></li>
-					{% for food in order.foods %}
-						<li class="list-group-item">{{ food }}</li>
-					{% endfor %}
-			</ul>
+			<table class="table table-bordered border-dark" id="menu_table">
+			<thead>
+				<th class="text-center col-sm-3">Блюдо</th>
+				<th class="text-center">Кол-во</th>
+				<th class="text-center col-sm-1">Цена</th>
+				<th class="text-center">Сумма</th>
+			</thead>
+			<tbody class="table-group-divider">
+			{% for food in food_list %}
+				<tr>
+					<td><h4 class="text-center">{{ food.name }}</h4></td>
+					<td><h4 class="text-center">{{ food.amount }}</h4></td>
+					<td><p class="text-center">{{ food.price }} руб.<p></td>
+					<td><h4 class="text-center">{{ food.sum }} руб.</h4></td>
+				</tr>
 			{% endfor %}
+			</tbody>
+			
 		</div>
+		
 	</div>
 </body>
 </html>

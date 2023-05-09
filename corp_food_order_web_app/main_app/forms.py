@@ -37,6 +37,9 @@ class Order_Form(forms.Form):
 
     amount_fields = forms.MultiValueField(fields=fields)
 
+class Date_Form(forms.Form):
+    date = forms.DateField(widget=forms.SelectDateWidget(), label='Дата заказа:')
+
 
 
             
