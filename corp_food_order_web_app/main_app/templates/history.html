@@ -16,10 +16,10 @@
 					<a href="/" class="nav-link"><h4>Меню</h4></a>
 				</li>
 				<li class="nav-item">
-					<a href="/" class="nav-link text-secondary"><h4>История</h4></a>
+					<a href="history/" class="nav-link text-secondary"><h4>История</h4></a>
 				</li>
 				<li class="nav-item">
-					<a href="/" class="nav-link"><h4>Отчет</h4></a>
+					<a href="report/" class="nav-link"><h4>Отчет</h4></a>
 				</li>
 			</ul>
 		</header>
@@ -48,9 +48,18 @@
 				</div>
 			</div>
 			</div>
-			
-			
 		</form>
+		<h2 class="text-center">{{ person }}</h2>
+		<div class="container p-2">
+			{% for order in orders %}
+			<ul class="list-group border border-dark">
+				<li class="list-group-item"><h5>Дата : {{ order.date }}</h5></li>
+					{% for food in order.foods %}
+						<li class="list-group-item">{{ food }}</li>
+					{% endfor %}
+			</ul>
+			{% endfor %}
+		</div>
 	</div>
 </body>
 </html>

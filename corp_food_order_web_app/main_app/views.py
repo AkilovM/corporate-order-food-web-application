@@ -42,7 +42,13 @@ def history(request):
         return render(request, 'history.html', {'persons':persons})
     elif request.method == 'POST':
         person = request.POST.get('person')
-        orders = Order.objects.get()
+        orders = Order.objects.filter(person=person)
+        for o in orders:
+            foods = Food_Order.objects.filter(order=o)
+            o.foods = foods
+        return render(request, 'history.html', {'persons':persons, 'person':Person.objects.get(pk=person), 'orders':orders})
+            
+            
 
 def report(request):
     #TODO

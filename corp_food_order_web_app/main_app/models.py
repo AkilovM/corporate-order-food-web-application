@@ -28,4 +28,4 @@ class Food_Order(models.Model):
     amount = models.PositiveSmallIntegerField()
 
     def __str__(self):
-        return f'{self.food} {self.order} {self.amount}'
+        return f'{self.amount} x {self.food}'
